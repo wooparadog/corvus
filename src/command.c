@@ -927,7 +927,7 @@ void cmd_stats(struct command *cmd, int64_t end_time)
     ATOMIC_INC(ctx->stats.total_latency, latency);
     ATOMIC_SET(ctx->last_command_latency, latency);
 
-    if (config.slow_threshold >= 0 && latency > config.slow_threshold * 1000) {
+    if (config.slow_threshold >= 0 && latency > config.slow_threshold * 1000 && cmd->server != NULL ) {
         ATOMIC_INC(cmd->server->info->slow_cmd_counts[cmd->cmd_type], 1);
     }
 
